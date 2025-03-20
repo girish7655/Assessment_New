@@ -14,23 +14,16 @@ const route = inject('route');
 const props = defineProps({
     category: {
         type: Object,
-        default: () => ({
-            name: '',
-            description: '',
-        }),
-    },
-    categories: {
-        type: Array,
-        default: () => [],
-    },
-    mode: {
-        type: String,
-        default: 'create',
+        default: () => ({}),
     },
     errors: {
         type: Object,
         default: () => ({}),
     },
+    mode: {
+        type: String,
+        default: 'create'
+    }
 });
 
 const { handleSubmit, resetForm } = useVeeForm({
@@ -43,17 +36,6 @@ const { value: description, errorMessage: descriptionError } = useField('descrip
 
 const processing = ref(false);
 
-const generateSlug = () => {
-    if (name.value) {
-        slug.value = name.value
-            .toLowerCase()
-            .replace(/[^\w\s-]/g, '')
-            .replace(/\s+/g, '-')
-            .replace(/-+/g, '-')
-            .trim();
-    }
-};
-
 const submit = handleSubmit(async (values) => {
     processing.value = true;
     try {
@@ -62,6 +44,8 @@ const submit = handleSubmit(async (values) => {
         } else {
             await router.put(route('categories.update', props.category.id), values);
         }
+    } catch (error) {
+        // Handle error if needed
     } finally {
         processing.value = false;
     }
@@ -79,31 +63,25 @@ const submit = handleSubmit(async (values) => {
                 type="text"
                 class="mt-1 block w-full"
                 required
-                @input="generateSlug"
                 autofocus
             />
             <InputError :message="nameError || errors?.name" class="mt-2" />
         </div>
-        
+
         <!-- Description Field -->
         <div>
             <InputLabel for="description" value="Description" />
-            <textarea
+            <TextArea
                 id="description"
                 v-model="description"
-                rows="4"
-                class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-            ></textarea>
+                class="mt-1 block w-full"
+                rows="3"
+            />
             <InputError :message="descriptionError || errors?.description" class="mt-2" />
         </div>
 
-
-        <!-- Submit Button -->
-        <div class="flex items-center justify-end">
-            <PrimaryButton
-                :class="{ 'opacity-25': processing }"
-                :disabled="processing"
-            >
+        <div class="flex items-center justify-end mt-4">
+            <PrimaryButton :class="{ 'opacity-25': processing }" :disabled="processing">
                 {{ mode === 'create' ? 'Create Category' : 'Update Category' }}
             </PrimaryButton>
         </div>

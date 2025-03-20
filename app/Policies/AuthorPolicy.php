@@ -15,12 +15,10 @@ class AuthorPolicy
 
     public function view(User $user, Author $author): bool
     {
-        // Customers can view any author
         if (!$user->isLibrarian()) {
             return true;
         }
 
-        // Librarians can only view their own authors
         return $user->id === $author->created_by;
     }
 

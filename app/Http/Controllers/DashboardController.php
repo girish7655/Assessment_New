@@ -12,6 +12,13 @@ use Inertia\Response;
 
 class DashboardController extends Controller
 {
+    /**
+     * Displays the dashboard for the current user.
+     * 
+     * If the user is a librarian, it also includes their personal statistics.
+     * 
+     * @return Response
+     */
     public function index(): Response
     {
         $user = auth()->user();
@@ -35,6 +42,17 @@ class DashboardController extends Controller
         ]);
     }
 
+    /**
+     * Retrieves the top 5 most popular categories based on the number of books.
+     *
+     * @return array An array of categories with their respective book counts.
+     */
+
+    /**
+     * Retrieves the top 5 most popular categories based on the number of books.
+     * 
+     * @return array An array of categories with their respective book counts.
+     */
     private function getPopularCategories(): array
     {
         return Category::withCount('books')

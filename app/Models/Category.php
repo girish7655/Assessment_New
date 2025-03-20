@@ -27,9 +27,15 @@ class Category extends Model
         });
     }
 
-    public function createdBy(): BelongsTo
+    public function creator(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by');
+    }
+
+    // Keeping createdBy as an alias for backward compatibility
+    public function createdBy(): BelongsTo
+    {
+        return $this->creator();
     }
 
     public function books(): HasMany

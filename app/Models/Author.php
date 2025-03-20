@@ -41,14 +41,18 @@ class Author extends Model
      */
     private static function validateUnique($author)
     {
-        $query = static::where('name', $author->name);
+        $query = static::where('name', $author->name)
+            ->where('birth_date', $author->birth_date)
+            ->where('nationality', $author->nationality)
+            ->where('created_by', auth()->id())
+            ->whereNull('deleted_at');
 
         if ($author->exists) {
             $query->where('id', '!=', $author->id);
         }
 
         if ($query->exists()) {
-            throw new \Exception('An author with these details already exists.');
+            throw new \Exception('You already have an author with these details.');
         }
     }
 

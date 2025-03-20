@@ -34,7 +34,7 @@ defineProps({
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div v-if="flash?.success || flash?.error" class="mb-4">
+                <div v-if="flash?.success || flash?.error || errors?.name" class="mb-4">
                     <Notification
                         v-if="flash?.success"
                         type="success"

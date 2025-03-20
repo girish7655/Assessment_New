@@ -6,7 +6,6 @@ use App\Mail\BookCheckoutCustomerNotification;
 use App\Mail\BookCheckoutLibrarianNotification;
 use App\Models\Book;
 use App\Models\User;
-use App\Models\BookCheckout;
 use App\Exceptions\BookNotAvailableException;
 use App\Exceptions\CheckoutLimitExceededException;
 use App\Repositories\Interfaces\BookCheckoutRepositoryInterface;

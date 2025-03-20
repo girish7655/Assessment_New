@@ -47,7 +47,8 @@ class PublisherRepository implements PublisherRepositoryInterface
     {
         $query = Publisher::query()
             ->where('name', $name)
-            ->where('created_by', auth()->id());
+            ->where('created_by', auth()->id()) 
+            ->whereNull('deleted_at');
 
         if ($excludeId) {
             $query->where('id', '!=', $excludeId);

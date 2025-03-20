@@ -11,6 +11,19 @@ use Illuminate\Support\Facades\Auth;
 
 class BookCheckoutController extends Controller
 {
+    /**
+     * Handle the checkout process for a book.
+     *
+     * This method uses the CheckoutBookAction to execute the checkout logic,
+     * including validation and updating the book's status. It then redirects
+     * the user to the book's detail page with a success message upon completion.
+     * If an exception occurs during checkout, the user is redirected back with an error message.
+     *
+     * @param  \App\Models\Book  $book
+     * @param  \App\Actions\Books\CheckoutBookAction  $checkoutAction
+     * @return \Illuminate\Http\RedirectResponse
+     */
+
     public function checkout(
         Book $book,
         CheckoutBookAction $checkoutAction
@@ -26,6 +39,18 @@ class BookCheckoutController extends Controller
         }
     }
 
+    /**
+     * Handle the return process for a book.
+     *
+     * This method uses the ReturnBookAction to execute the return logic,
+     * including validation and updating the book's status. It then redirects
+     * the user to the book's detail page with a success message upon completion.
+     * If an exception occurs during return, the user is redirected back with an error message.
+     *
+     * @param  \App\Models\Book  $book
+     * @param  \App\Actions\Books\ReturnBookAction  $returnAction
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function return(
         Book $book,
         ReturnBookAction $returnAction

@@ -5,16 +5,20 @@ namespace App\Actions\Users;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
-class CreateUserAction
+class UpdateUserAction
 {
-    public function execute(array $data)
+    public function execute(User $user, array $data)
     {
-        $user = User::create([
+        $user->update([
             'name' => $data['name'],
             'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'role_id' => $data['role_id'],
         ]);
+
+        if (isset($data['password'])) {
+            $user->update([
+                'password' => Hash::make($data['password'])
+            ]);
+        }
 
         if (isset($data['roles'])) {
             $user->roles()->sync($data['roles']);

@@ -11,12 +11,22 @@ use Inertia\Inertia;
 
 class AuthorController extends Controller
 {
+    /**
+     * Construct a new AuthorController instance.
+     *
+     * @param  AuthorService  $authorService
+     */
     public function __construct(
         private readonly AuthorService $authorService
     ) {
         $this->authorizeResource(Author::class, 'author');
     }
 
+    /**
+     * Show a paginated list of authors with search.
+     *
+     * @return \Inertia\Response
+     */
     public function index(): Response
     {
         $authors = $this->authorService->getPaginatedAuthors();
@@ -27,11 +37,25 @@ class AuthorController extends Controller
         ]);
     }
 
+    /**
+     * Show the form for creating a new author.
+     *
+     * @return \Inertia\Response
+     */
+
     public function create(): Response
     {
         return Inertia::render('Authors/Create');
     }
 
+    /**
+     * Store a newly created author in storage.
+     *
+     * This action is responsible for saving a new author to the database.
+     *
+     * @param  AuthorRequest  $request
+     * @return RedirectResponse
+     */
     public function store(AuthorRequest $request): RedirectResponse
     {
         try {
@@ -47,6 +71,14 @@ class AuthorController extends Controller
         }
     }
 
+    /**
+     * Show the form for editing the specified author.
+     *
+     * Authorizes the edit action for the provided author, then renders the edit form with the author data.
+     *
+     * @param  \App\Models\Author  $author
+     * @return \Inertia\Response
+     */
     public function edit(Author $author): Response
     {
         return Inertia::render('Authors/Edit', [
@@ -54,6 +86,18 @@ class AuthorController extends Controller
         ]);
     }
 
+    /**
+     * Update the specified author in storage.
+     *
+     * Validates and updates the author with the provided data.
+     * Redirects back to the authors index on success, or back with error messages on failure.
+     *
+     * @param  AuthorRequest  $request
+     * @param  \App\Models\Author  $author
+     * @return \Illuminate\Http\RedirectResponse
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function update(AuthorRequest $request, Author $author): RedirectResponse
     {
         try {
@@ -70,6 +114,15 @@ class AuthorController extends Controller
         }
     }
 
+    /**
+     * Remove the specified author from storage.
+     *
+     * Deletes the author from the database. Redirects back to the authors index
+     * on success, or back with error messages on failure.
+     *
+     * @param  \App\Models\Author  $author
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function destroy(Author $author): RedirectResponse
     {
         try {

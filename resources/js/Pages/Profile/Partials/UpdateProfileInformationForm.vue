@@ -4,6 +4,7 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Link, useForm, usePage } from '@inertiajs/vue3';
+import { inject } from 'vue';
 
 defineProps({
     mustVerifyEmail: {
@@ -13,6 +14,8 @@ defineProps({
         type: String,
     },
 });
+
+const route = inject('route');
 
 const user = usePage().props.auth.user;
 
@@ -57,6 +60,7 @@ const form = useForm({
                     type="email"
                     class="mt-1 block w-full"
                     v-model="form.email"
+                    :disabled="true"
                     required
                     autocomplete="username"
                 />

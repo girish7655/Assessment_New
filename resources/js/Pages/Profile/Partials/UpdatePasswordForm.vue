@@ -7,8 +7,6 @@ import { useForm } from '@inertiajs/vue3';
 import { ref } from 'vue';
 import Notification from '@/Components/Notification.vue';
 
-
-
 const passwordInput = ref(null);
 const currentPasswordInput = ref(null);
 

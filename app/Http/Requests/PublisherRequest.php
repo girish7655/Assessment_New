@@ -52,11 +52,9 @@ class PublisherRequest extends FormRequest
 
     protected function prepareForValidation()
     {
-        // Trim whitespace from inputs
         if ($this->has('name')) {
             $this->merge(['name' => trim($this->name)]);
         }
-        
         if ($this->has('phone')) {
             $this->merge([
                 'phone' => $this->phone ? 
@@ -64,8 +62,6 @@ class PublisherRequest extends FormRequest
                     null
             ]);
         }
-
-        // Convert empty strings to null
         if ($this->has('address') && $this->address === '') {
             $this->merge(['address' => null]);
         }

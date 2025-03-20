@@ -44,10 +44,19 @@ const submit = handleSubmit(async (values) => {
     processing.value = true;
     try {
         if (props.mode === 'create') {
-            await router.post(route('publishers.store'), values);
+            await router.post(route('publishers.store'), values, {
+                onSuccess: () => {
+                    resetForm();
+                },
+                onError: (errors) => {
+                    // The errors will be automatically handled by Inertia
+                },
+            });
         } else {
             await router.put(route('publishers.update', props.publisher.id), values);
         }
+    } catch (error) {
+        console.error('Form submission failed:', error);
     } finally {
         processing.value = false;
     }

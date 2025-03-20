@@ -22,7 +22,9 @@ class AuthorRequest extends FormRequest
                 Rule::unique('authors')->where(function ($query) {
                     return $query->where('name', $this->name)
                                 ->where('birth_date', $this->birth_date)
-                                ->where('nationality', $this->nationality);
+                                ->where('nationality', $this->nationality)
+                                ->where('created_by', auth()->id())
+                                ->whereNull('deleted_at');
                 })->ignore($this->author)
             ],
             'birth_date' => ['nullable', 'date', 'before:today'],
@@ -33,7 +35,7 @@ class AuthorRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.unique' => 'An author with the same name already exists.',
+            'name.unique' => 'You already have an author with these details.',
             'name.required' => 'The author name is required.',
             'name.max' => 'The author name must not exceed 255 characters.',
             'birth_date.before' => 'The birth date must be before today.',

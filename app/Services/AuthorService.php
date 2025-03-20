@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Models\Author;
-use App\Repositories\AuthorRepository;
+use App\Repositories\Eloquent\AuthorRepository;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class AuthorService

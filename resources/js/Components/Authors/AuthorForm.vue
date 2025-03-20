@@ -105,7 +105,7 @@ const submit = handleSubmit(async (values) => {
                 required
                 autofocus
             />
-            <InputError :message="nameError || (errors && errors.name)" class="mt-2" />
+            <InputError :message="errors?.name" class="mt-2" />
         </div>
 
         <!-- Birth Date Field -->

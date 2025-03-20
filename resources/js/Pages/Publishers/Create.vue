@@ -2,10 +2,15 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, Link } from '@inertiajs/vue3';
 import PublisherForm from '@/Components/Publishers/PublisherForm.vue';
+import Notification from '@/Components/Notification.vue';
 import { inject } from 'vue';
 
 const route = inject('route');
 
+defineProps({
+    errors: Object,
+    flash: Object,
+});
 </script>
 
 <template>
@@ -28,9 +33,29 @@ const route = inject('route');
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div v-if="flash?.success || flash?.error || errors?.name" class="mb-4">
+                    <Notification
+                        v-if="flash?.success"
+                        type="success"
+                        :message="flash.success"
+                        :duration="3000"
+                    />
+                    <Notification
+                        v-if="flash?.error"
+                        type="error"
+                        :message="flash.error"
+                        :duration="3000"
+                    />
+                </div>
+
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 bg-white border-b border-gray-200">
-                        <PublisherForm mode="create" />
+                        <div class="max-w-2xl mx-auto">
+                            <PublisherForm 
+                                mode="create"
+                                :errors="errors"
+                            />
+                        </div>
                     </div>
                 </div>
             </div>

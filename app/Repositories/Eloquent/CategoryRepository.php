@@ -82,17 +82,15 @@ class CategoryRepository implements CategoryRepositoryInterface
             throw new \Exception('Cannot delete category. It has associated books.');
         }
 
-        return $category->delete();
+        return $category->forceDelete();
     }
 
     private function validateUniqueName(string $name, ?int $excludeId = null): void
     {
         $query = Category::query()
-            ->where('name', $name);
-
-        if (auth()->user()->role === 'librarian') {
-            $query->where('created_by', auth()->id());
-        }
+            ->where('name', $name)
+            ->where('created_by', auth()->id())  // Only check current librarian's categories
+            ->whereNull('deleted_at');
 
         if ($excludeId) {
             $query->where('id', '!=', $excludeId);
@@ -100,7 +98,7 @@ class CategoryRepository implements CategoryRepositoryInterface
 
         if ($query->exists()) {
             throw ValidationException::withMessages([
-                'name' => ['A category with this name already exists.']
+                'name' => ['You already have a category with this name.']
             ]);
         }
     }

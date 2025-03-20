@@ -170,10 +170,7 @@ const confirmDeleteReview = (reviewId) => {
                     </button>
 
                     <button
-                        v-if="auth.user.role === 'customer' && hasCheckedOutBook && !userReview"
-                        @click="openReviewModal"
-                        class="px-4 py-2 bg-orange-600 text-white rounded-md hover:bg-orange-700 text-sm"
-                    >   
+                        v-if="auth.user.role === 'customer' && hasCheckedOutBook && book.status === 'available'"
                         @click="openReviewModal"
                         class="px-4 py-2 bg-orange-600 text-white rounded-md hover:bg-orange-700 text-sm"
                     >

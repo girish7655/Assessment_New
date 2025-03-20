@@ -5,10 +5,11 @@ import PublisherForm from '@/Components/Publishers/PublisherForm.vue';
 import Notification from '@/Components/Notification.vue';
 import { inject } from 'vue';
 
-const route = inject('route');  
+const route = inject('route');
 
 defineProps({
     publisher: Object,
+    errors: Object,
     flash: Object,
 });
 </script>
@@ -33,7 +34,7 @@ defineProps({
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div v-if="flash?.success || flash?.error" class="mb-4">
+                <div v-if="flash?.success || flash?.error || errors?.name" class="mb-4">
                     <Notification
                         v-if="flash?.success"
                         type="success"
@@ -50,10 +51,13 @@ defineProps({
 
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 bg-white border-b border-gray-200">
-                        <PublisherForm
-                            :publisher="publisher"
-                            mode="edit"
-                        />
+                        <div class="max-w-2xl mx-auto">
+                            <PublisherForm 
+                                :publisher="publisher"
+                                mode="edit"
+                                :errors="errors"
+                            />
+                        </div>
                     </div>
                 </div>
             </div>

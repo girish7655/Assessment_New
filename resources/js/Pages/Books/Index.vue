@@ -194,7 +194,7 @@ const deleteBook = (book) => {
                                         <td class="px-6 py-4">
                                             <span
                                                 :class="{
-                                                    'px-2 py-1 rounded text-sm': true,
+                                                    'px-3 py-2 rounded-md text-sm font-medium whitespace-nowrap inline-block': true,
                                                     'bg-green-100 text-green-800': book.status === 'available',
                                                     'bg-red-100 text-red-800': book.status === 'checked_out'
                                                 }"

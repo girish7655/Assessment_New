@@ -13,11 +13,11 @@ export const authorRules = yup.object().shape({
             return isNaN(date) ? undefined : date;
         })
         .test('is-valid-date', 'Please enter a valid date', function(value) {
-            if (!value) return true; // Allow null/empty values
+            if (!value) return true; 
             return value instanceof Date && !isNaN(value);
         })
         .test('is-before-today', 'Birth date must be before today', function(value) {
-            if (!value) return true; // Allow null/empty values
+            if (!value) return true; 
             const today = new Date();
             today.setHours(0, 0, 0, 0);
             return value < today;

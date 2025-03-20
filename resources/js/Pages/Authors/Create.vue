@@ -32,8 +32,7 @@ defineProps({
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-
-                <div v-if="flash?.success || flash?.error" class="mb-4">
+                <div v-if="flash?.success || flash?.error || errors?.name" class="mb-4">
                     <Notification
                         v-if="flash?.success"
                         type="success"
@@ -51,7 +50,7 @@ defineProps({
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 bg-white border-b border-gray-200">
                         <div class="max-w-2xl mx-auto">
-                            <AuthorForm mode="create" />
+                            <AuthorForm mode="create" :errors="errors" />
                         </div>
                     </div>
                 </div>
